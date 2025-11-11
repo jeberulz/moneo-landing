@@ -26,7 +26,7 @@ export default function EmailForm() {
         />
         {/* Desktop: Full button with text */}
         <Link
-          href="#"
+          href="/onboarding"
           className="hidden md:inline-flex items-center justify-center gap-2 select-none ring-1 rounded-full px-6 py-3 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] group relative overflow-hidden shrink-0 text-white/90 bg-white/5 hover:bg-white/10 ring-white/20 hover:ring-cyan-400/40"
           style={{
             boxShadow:
@@ -52,7 +52,7 @@ export default function EmailForm() {
         </Link>
         {/* Mobile: Icon-only button */}
         <Link
-          href="#"
+          href="/onboarding"
           className="md:hidden relative inline-flex items-center justify-center select-none ring-1 rounded-full w-12 h-12 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.4)] group overflow-hidden shrink-0 text-white/90 bg-white/5 hover:bg-white/10 ring-white/20 hover:ring-cyan-400/40"
           style={{
             boxShadow:
