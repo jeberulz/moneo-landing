@@ -358,7 +358,7 @@ export default function SettingsView() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light tracking-tight font-geist text-white">
@@ -370,11 +370,11 @@ export default function SettingsView() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Settings Navigation */}
-        <div className="lg:col-span-1">
+        <div className="lg:w-64 shrink-0">
           <div className="rounded-2xl ring-1 p-4 border bg-neutral-900/95 ring-white/10 border-white/10">
-            <nav className="space-y-2">
+            <nav className="flex flex-col gap-2">
               {settingsSections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
@@ -388,7 +388,7 @@ export default function SettingsView() {
                         : "hover:bg-white/5 text-neutral-300 ring-white/10"
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 shrink-0" />
                     {section.label}
                   </button>
                 );
@@ -398,8 +398,8 @@ export default function SettingsView() {
         </div>
 
         {/* Settings Content */}
-        <div className="lg:col-span-3">
-          <div className="rounded-2xl ring-1 p-6 border bg-neutral-900/95 ring-white/10 border-white/10">
+        <div className="flex-1 min-w-0">
+          <div className="rounded-2xl ring-1 p-6 border bg-neutral-900/95 ring-white/10 border-white/10 max-w-3xl">
             {renderSectionContent()}
           </div>
         </div>

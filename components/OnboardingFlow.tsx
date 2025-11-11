@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, ArrowLeft, Check, TrendingUp, Target, CreditCard, Sparkles } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface Step {
   id: number;
@@ -34,14 +35,20 @@ export default function OnboardingFlow() {
             <label htmlFor="name" className="block text-sm font-medium text-neutral-300 font-geist">
               What's your name?
             </label>
-            <input
-              id="name"
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="Enter your name"
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-400/40 focus:border-cyan-400/40 transition-all font-geist"
-            />
+            <div className="group flex flex-row ring-1 rounded-full p-2 relative shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl bg-white/5 ring-white/15">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-full blur-md opacity-30 bg-white/5"
+              />
+              <Input
+                id="name"
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Enter your name"
+                className="flex-1 placeholder:text-white/60 outline-none text-base tracking-tight bg-transparent py-3 px-4 relative z-10 text-white/90 border-0 focus-visible:ring-0 rounded-full"
+              />
+            </div>
           </div>
         </div>
       ),
@@ -57,15 +64,19 @@ export default function OnboardingFlow() {
             <label htmlFor="income" className="block text-sm font-medium text-neutral-300 font-geist">
               What's your monthly income?
             </label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 font-geist">$</span>
-              <input
+            <div className="group flex flex-row ring-1 rounded-full p-2 relative shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl bg-white/5 ring-white/15">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-full blur-md opacity-30 bg-white/5"
+              />
+              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-white/60 font-geist z-10">$</span>
+              <Input
                 id="income"
                 type="number"
                 value={formData.monthlyIncome}
                 onChange={(e) => setFormData({ ...formData, monthlyIncome: e.target.value })}
                 placeholder="0"
-                className="w-full pl-8 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-400/40 focus:border-cyan-400/40 transition-all font-geist"
+                className="flex-1 placeholder:text-white/60 outline-none text-base tracking-tight bg-transparent py-3 pl-8 pr-4 relative z-10 text-white/90 border-0 focus-visible:ring-0 rounded-full"
               />
             </div>
           </div>
@@ -92,13 +103,19 @@ export default function OnboardingFlow() {
               <button
                 key={goal.value}
                 onClick={() => setFormData({ ...formData, financialGoal: goal.value })}
-                className={`px-4 py-3 rounded-xl border transition-all text-left font-geist ${
+                className={`px-4 py-3 rounded-xl ring-1 border transition-all text-left font-geist relative overflow-hidden ${
                   formData.financialGoal === goal.value
-                    ? "bg-white/10 border-cyan-400/40 ring-2 ring-cyan-400/20 text-white"
-                    : "bg-white/5 border-white/10 text-neutral-300 hover:bg-white/8 hover:border-white/20"
+                    ? "bg-white/10 ring-cyan-400/40 border-cyan-400/40 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
+                    : "bg-white/5 ring-white/10 border-white/10 text-neutral-300 hover:bg-white/8 hover:ring-white/20 hover:border-white/20"
                 }`}
               >
-                {goal.label}
+                {formData.financialGoal === goal.value && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none"
+                  />
+                )}
+                <span className="relative z-10">{goal.label}</span>
               </button>
             ))}
           </div>
@@ -126,13 +143,19 @@ export default function OnboardingFlow() {
               <button
                 key={category.value}
                 onClick={() => setFormData({ ...formData, spendingCategory: category.value })}
-                className={`px-4 py-3 rounded-xl border transition-all text-left font-geist ${
+                className={`px-4 py-3 rounded-xl ring-1 border transition-all text-left font-geist relative overflow-hidden ${
                   formData.spendingCategory === category.value
-                    ? "bg-white/10 border-cyan-400/40 ring-2 ring-cyan-400/20 text-white"
-                    : "bg-white/5 border-white/10 text-neutral-300 hover:bg-white/8 hover:border-white/20"
+                    ? "bg-white/10 ring-cyan-400/40 border-cyan-400/40 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
+                    : "bg-white/5 ring-white/10 border-white/10 text-neutral-300 hover:bg-white/8 hover:ring-white/20 hover:border-white/20"
                 }`}
               >
-                {category.label}
+                {formData.spendingCategory === category.value && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none"
+                  />
+                )}
+                <span className="relative z-10">{category.label}</span>
               </button>
             ))}
           </div>
@@ -190,11 +213,11 @@ export default function OnboardingFlow() {
       </div>
 
       {/* Main Card */}
-      <div className="w-full max-w-2xl rounded-2xl ring-1 p-8 md:p-12 border bg-neutral-900/95 ring-white/10 border-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+      <div className="w-full max-w-2xl rounded-2xl ring-1 p-8 md:p-12 border bg-neutral-900/95 ring-white/10 border-white/10 backdrop-blur-xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.5)]">
         <div className="space-y-8">
           {/* Icon */}
-          <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-cyan-500/10 ring-1 ring-cyan-400/20">
-            <div className="text-cyan-300">{steps[currentStep].icon}</div>
+          <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 ring-1 ring-white/10">
+            <div className="text-white/90">{steps[currentStep].icon}</div>
           </div>
 
           {/* Title & Description */}
@@ -217,10 +240,10 @@ export default function OnboardingFlow() {
             <button
               onClick={handleBack}
               disabled={currentStep === 0}
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all font-geist ${
+              className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all font-geist relative overflow-hidden ${
                 currentStep === 0
                   ? "opacity-50 cursor-not-allowed"
-                  : "bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                  : "bg-white/5 hover:bg-white/10 text-white ring-1 ring-white/10 hover:ring-white/20"
               }`}
             >
               <ArrowLeft className="w-4 h-4" />

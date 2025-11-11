@@ -14,12 +14,194 @@ import TransfersView from "./TransfersView";
 import ReportsView from "./ReportsView";
 import TeamView from "./TeamView";
 import SettingsView from "./SettingsView";
-import { CreditCard, ArrowDown, ArrowUp, Calendar, Grid } from "lucide-react";
+import TimePeriodFilter, { TimePeriod } from "./overview/TimePeriodFilter";
+import QuickAIInsightCard from "./overview/QuickAIInsightCard";
+import UpcomingPaymentsList from "./overview/UpcomingPaymentsList";
+import RecentTransactionsSummary from "./overview/RecentTransactionsSummary";
+import BudgetProgressCard from "./overview/BudgetProgressCard";
+import GoalsProgressCard from "./overview/GoalsProgressCard";
+import AccountBalanceSummary from "./overview/AccountBalanceSummary";
+import { CreditCard, ArrowDown, ArrowUp, Calendar, Grid, TrendingDown, ShoppingBag, Coffee, Home, Car } from "lucide-react";
 
-function OverviewContent() {
+function OverviewContent({ onNavChange }: { onNavChange: (nav: string) => void }) {
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>("week");
+
+  // Mock data for AI Insight
+  const topInsight = {
+    id: 1,
+    type: "savings" as const,
+    title: "Potential savings identified",
+    description: "You could save $450/month by optimizing subscription services",
+    value: "$450",
+    icon: TrendingDown,
+    color: "emerald" as const,
+  };
+
+  // Mock data for Upcoming Payments
+  const upcomingPayments = [
+    {
+      id: 1,
+      recipient: "Electric Company",
+      amount: "$120.00",
+      date: "Jan 15",
+      status: "scheduled" as const,
+      account: "Primary Account",
+    },
+    {
+      id: 2,
+      recipient: "Internet Provider",
+      amount: "$89.99",
+      date: "Jan 18",
+      status: "scheduled" as const,
+      account: "Primary Account",
+    },
+    {
+      id: 3,
+      recipient: "Rent Payment",
+      amount: "$2,400.00",
+      date: "Jan 20",
+      status: "pending" as const,
+      account: "Primary Account",
+    },
+  ];
+
+  // Mock data for Recent Transactions
+  const recentTransactions = [
+    {
+      id: 1,
+      type: "income" as const,
+      title: "Salary payment",
+      description: "Monthly salary from Acme Corp",
+      amount: "+$5,200.00",
+      time: "Today, 9:00 AM",
+      category: "Salary",
+      icon: ArrowDown,
+    },
+    {
+      id: 2,
+      type: "expense" as const,
+      title: "Grocery shopping",
+      description: "Whole Foods Market",
+      amount: "-$127.45",
+      time: "Today, 2:30 PM",
+      category: "Groceries",
+      icon: ShoppingBag,
+    },
+    {
+      id: 3,
+      type: "expense" as const,
+      title: "Coffee shop",
+      description: "Starbucks",
+      amount: "-$5.75",
+      time: "Today, 8:15 AM",
+      category: "Food & Drink",
+      icon: Coffee,
+    },
+    {
+      id: 4,
+      type: "expense" as const,
+      title: "Rent payment",
+      description: "Monthly apartment rent",
+      amount: "-$2,400.00",
+      time: "Yesterday, 10:00 AM",
+      category: "Housing",
+      icon: Home,
+    },
+    {
+      id: 5,
+      type: "expense" as const,
+      title: "Gas station",
+      description: "Shell Station",
+      amount: "-$45.20",
+      time: "Yesterday, 5:45 PM",
+      category: "Transportation",
+      icon: Car,
+    },
+  ];
+
+  // Mock data for Budget Progress
+  const budgetCategories = [
+    {
+      id: 1,
+      name: "Groceries",
+      spent: 320,
+      budget: 500,
+      status: "on-track" as const,
+    },
+    {
+      id: 2,
+      name: "Dining",
+      spent: 450,
+      budget: 400,
+      status: "over" as const,
+    },
+    {
+      id: 3,
+      name: "Entertainment",
+      spent: 180,
+      budget: 300,
+      status: "on-track" as const,
+    },
+    {
+      id: 4,
+      name: "Transportation",
+      spent: 220,
+      budget: 250,
+      status: "warning" as const,
+    },
+  ];
+
+  // Mock data for Goals
+  const goals = [
+    {
+      id: 1,
+      name: "Emergency Fund",
+      targetAmount: 10000,
+      currentAmount: 7500,
+      deadline: "Target: Mar 2025",
+    },
+    {
+      id: 2,
+      name: "Vacation Fund",
+      targetAmount: 5000,
+      currentAmount: 3200,
+      deadline: "Target: Jun 2025",
+    },
+  ];
+
+  // Mock data for Accounts
+  const accounts = [
+    {
+      id: 1,
+      name: "Primary Account",
+      balance: 45230.50,
+      change: 1200,
+      changeType: "increase" as const,
+    },
+    {
+      id: 2,
+      name: "Savings Account",
+      balance: 125890.00,
+      change: 5000,
+      changeType: "increase" as const,
+    },
+    {
+      id: 3,
+      name: "Investment Account",
+      balance: 234567.89,
+      change: -2500,
+      changeType: "decrease" as const,
+    },
+  ];
+
   return (
     <>
-      {/* Earnings + Card */}
+      {/* Zone 1: Hero Metrics */}
+      <div className="flex items-center justify-between mb-4">
+        <div />
+        <TimePeriodFilter currentPeriod={timePeriod} onPeriodChange={setTimePeriod} />
+      </div>
+
       <div className="grid grid-cols-1 gap-6 items-stretch lg:[grid-template-columns:minmax(0,_420px)_minmax(0,_1fr)]">
         {/* Chart */}
         <div className="flex flex-col w-full h-full max-w-lg rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
@@ -114,7 +296,44 @@ function OverviewContent() {
           </div>
         </div>
       </div>
+
       <KPICards />
+
+      {/* Zone 2: Quick Actions & Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <QuickAIInsightCard
+          insight={topInsight}
+          onViewAll={() => onNavChange("AI Insights")}
+        />
+        <UpcomingPaymentsList
+          payments={upcomingPayments}
+          onViewAll={() => onNavChange("Transfers")}
+        />
+      </div>
+
+      {/* Zone 3: Activity & Budget */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <RecentTransactionsSummary
+          transactions={recentTransactions}
+          onViewAll={() => onNavChange("Activity")}
+        />
+        <BudgetProgressCard
+          categories={budgetCategories}
+          onManage={() => onNavChange("Reports")}
+        />
+      </div>
+
+      {/* Zone 4: Goals & Accounts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <GoalsProgressCard
+          goals={goals}
+          onViewAll={() => onNavChange("Reports")}
+        />
+        <AccountBalanceSummary
+          accounts={accounts}
+          onViewWallet={() => onNavChange("Wallet")}
+        />
+      </div>
     </>
   );
 }
@@ -126,7 +345,7 @@ export default function Dashboard() {
   const renderContent = () => {
     switch (activeNav) {
       case "Overview":
-        return <OverviewContent />;
+        return <OverviewContent onNavChange={setActiveNav} />;
       case "Wallet":
         return <WalletView />;
       case "Transfers":
@@ -146,7 +365,7 @@ export default function Dashboard() {
       case "Cards":
         return <CardsView />;
       default:
-        return <OverviewContent />;
+        return <OverviewContent onNavChange={setActiveNav} />;
     }
   };
 

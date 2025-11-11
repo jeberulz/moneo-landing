@@ -9,6 +9,7 @@ import {
   Home,
   Car,
   Calendar,
+  Activity,
 } from "lucide-react";
 
 const activities = [
@@ -100,7 +101,7 @@ export default function ActivityView() {
   }, {} as Record<string, typeof activities>);
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light tracking-tight font-geist text-white">
@@ -115,7 +116,7 @@ export default function ActivityView() {
         </button>
       </div>
 
-      <div className="space-y-6">
+      <div className="flex flex-col gap-6 max-w-4xl">
         {Object.entries(groupedActivities).map(([date, dateActivities]) => (
           <div key={date}>
             <div className="flex items-center gap-3 mb-4">
@@ -124,7 +125,7 @@ export default function ActivityView() {
                 {date}
               </h3>
             </div>
-            <div className="space-y-3">
+            <div className="flex flex-col gap-3">
               {dateActivities.map((activity) => {
                 const Icon = activity.icon;
                 const isIncome = activity.type === "income";
@@ -139,7 +140,7 @@ export default function ActivityView() {
                   >
                     <div className="flex items-start gap-4">
                       <div
-                        className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 bg-white/5 ring-white/10 ${
+                        className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 bg-white/5 ring-white/10 shrink-0 ${
                           isIncome
                             ? "text-emerald-400"
                             : "text-neutral-300"
@@ -147,13 +148,13 @@ export default function ActivityView() {
                       >
                         <Icon className="w-5 h-5" />
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="text-sm font-semibold tracking-tight font-geist text-white">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="text-sm font-semibold tracking-tight font-geist text-white truncate">
                               {activity.title}
                             </h3>
-                            <p className="mt-1 text-sm font-geist text-neutral-400">
+                            <p className="mt-1 text-sm font-geist text-neutral-400 truncate">
                               {activity.description}
                             </p>
                             <div className="mt-2 flex items-center gap-2">
@@ -168,7 +169,7 @@ export default function ActivityView() {
                               </span>
                             </div>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right shrink-0">
                             <p
                               className={`text-lg font-semibold tracking-tight font-geist ${amountColor}`}
                             >

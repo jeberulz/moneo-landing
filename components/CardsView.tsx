@@ -49,7 +49,7 @@ const cards = [
 
 export default function CardsView() {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light tracking-tight font-geist text-white">
@@ -65,34 +65,35 @@ export default function CardsView() {
         </button>
       </div>
 
-      {/* Smart Features Banner */}
-      <div className="rounded-2xl ring-1 p-5 border bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 ring-white/10 border-white/10">
-        <div className="flex items-center gap-4">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30">
-            <Sparkles className="w-6 h-6 text-emerald-300" />
-          </div>
-          <div className="flex-1">
-            <h3 className="text-sm font-semibold tracking-tight font-geist text-white">
-              AI-Powered Features
-            </h3>
-            <p className="text-xs font-geist text-neutral-400 mt-1">
-              Auto-categorize purchases, set spending limits, and get instant alerts
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-xs font-geist px-2 py-1 rounded-full bg-white/5 text-neutral-300">
-              <Zap className="w-3 h-3" />
-              Auto-categorize
-            </span>
-            <span className="inline-flex items-center gap-1 text-xs font-geist px-2 py-1 rounded-full bg-white/5 text-neutral-300">
-              <AlertCircle className="w-3 h-3" />
-              Smart Alerts
-            </span>
+      <div className="flex flex-col gap-6 max-w-6xl">
+        {/* Smart Features Banner */}
+        <div className="rounded-2xl ring-1 p-5 border bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 ring-white/10 border-white/10">
+          <div className="flex items-center gap-4">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30 shrink-0">
+              <Sparkles className="w-6 h-6 text-emerald-300" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-semibold tracking-tight font-geist text-white">
+                AI-Powered Features
+              </h3>
+              <p className="text-xs font-geist text-neutral-400 mt-1">
+                Auto-categorize purchases, set spending limits, and get instant alerts
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1 text-xs font-geist px-2 py-1 rounded-full bg-white/5 text-neutral-300">
+                <Zap className="w-3 h-3" />
+                Auto-categorize
+              </span>
+              <span className="inline-flex items-center gap-1 text-xs font-geist px-2 py-1 rounded-full bg-white/5 text-neutral-300">
+                <AlertCircle className="w-3 h-3" />
+                Smart Alerts
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card) => (
           <div
             key={card.id}
@@ -234,31 +235,32 @@ export default function CardsView() {
         </button>
       </div>
 
-      {/* Card Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-        <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
-          <p className="text-xs font-geist text-neutral-400 mb-2">
-            Total Cards
-          </p>
-          <p className="text-2xl font-light tracking-tight font-geist text-white">
-            {cards.length}
-          </p>
-        </div>
-        <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
-          <p className="text-xs font-geist text-neutral-400 mb-2">
-            Total Balance
-          </p>
-          <p className="text-2xl font-light tracking-tight font-geist text-white">
-            $15,680.50
-          </p>
-        </div>
-        <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
-          <p className="text-xs font-geist text-neutral-400 mb-2">
-            Active Cards
-          </p>
-          <p className="text-2xl font-light tracking-tight font-geist text-white">
-            {cards.filter((c) => c.status === "active").length}
-          </p>
+        {/* Card Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
+            <p className="text-xs font-geist text-neutral-400 mb-2">
+              Total Cards
+            </p>
+            <p className="text-2xl font-light tracking-tight font-geist text-white">
+              {cards.length}
+            </p>
+          </div>
+          <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
+            <p className="text-xs font-geist text-neutral-400 mb-2">
+              Total Balance
+            </p>
+            <p className="text-2xl font-light tracking-tight font-geist text-white">
+              $15,680.50
+            </p>
+          </div>
+          <div className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10">
+            <p className="text-xs font-geist text-neutral-400 mb-2">
+              Active Cards
+            </p>
+            <p className="text-2xl font-light tracking-tight font-geist text-white">
+              {cards.filter((c) => c.status === "active").length}
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ export default function WalletView() {
   }, 0);
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light tracking-tight font-geist text-white">
@@ -57,101 +57,103 @@ export default function WalletView() {
         </div>
       </div>
 
-      {/* Total Balance Card */}
-      <div className="rounded-2xl ring-1 p-6 border bg-neutral-900/95 ring-white/10 border-white/10">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-geist text-neutral-400">Total Balance</p>
-            <p className="mt-2 text-4xl font-light tracking-tight font-geist text-white">
-              ${totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </p>
-            <p className="mt-1 text-xs font-geist text-neutral-500">
-              Across all accounts
-            </p>
-          </div>
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30">
-            <Wallet className="w-8 h-8 text-emerald-300" />
+      <div className="flex flex-col gap-6 max-w-4xl">
+        {/* Total Balance Card */}
+        <div className="rounded-2xl ring-1 p-6 border bg-neutral-900/95 ring-white/10 border-white/10">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-geist text-neutral-400">Total Balance</p>
+              <p className="mt-2 text-4xl font-light tracking-tight font-geist text-white">
+                ${totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
+              <p className="mt-1 text-xs font-geist text-neutral-500">
+                Across all accounts
+              </p>
+            </div>
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30 shrink-0">
+              <Wallet className="w-8 h-8 text-emerald-300" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-3 gap-4">
-        {quickActions.map((action) => {
-          const Icon = action.icon;
-          const colorClasses = {
-            emerald: "bg-emerald-500/15 ring-emerald-400/30 text-emerald-300",
-            blue: "bg-blue-500/15 ring-blue-400/30 text-blue-300",
-            neutral: "bg-white/5 ring-white/10 text-neutral-300",
-          };
+        {/* Quick Actions */}
+        <div className="flex gap-4">
+          {quickActions.map((action) => {
+            const Icon = action.icon;
+            const colorClasses = {
+              emerald: "bg-emerald-500/15 ring-emerald-400/30 text-emerald-300",
+              blue: "bg-blue-500/15 ring-blue-400/30 text-blue-300",
+              neutral: "bg-white/5 ring-white/10 text-neutral-300",
+            };
 
-          return (
-            <button
-              key={action.id}
-              className={`rounded-xl ring-1 p-4 flex flex-col items-center gap-2 hover:ring-white/20 transition-all ${colorClasses[action.color as keyof typeof colorClasses]}`}
-            >
-              <Icon className="w-5 h-5" />
-              <span className="text-xs font-geist">{action.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Accounts List */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold tracking-tight font-geist text-white">
-            Accounts
-          </h3>
-          <button className="text-sm font-geist text-emerald-400 hover:text-emerald-300 transition-colors">
-            View all
-          </button>
-        </div>
-
-        <div className="space-y-3">
-          {accounts.map((account) => {
-            const Icon = account.icon;
             return (
-              <div
-                key={account.id}
-                className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10 hover:ring-white/20 transition-all"
+              <button
+                key={action.id}
+                className={`flex-1 rounded-xl ring-1 p-4 flex flex-col items-center gap-2 hover:ring-white/20 transition-all ${colorClasses[action.color as keyof typeof colorClasses]}`}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-4">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
-                      <Icon className="w-6 h-6 text-neutral-300" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold tracking-tight font-geist text-white">
-                        {account.name}
-                      </h4>
-                      <p className="mt-1 text-xs font-geist text-neutral-400">
-                        {account.bank} · {account.accountNumber}
-                      </p>
-                      <span className="mt-2 inline-block text-xs font-geist px-2 py-0.5 rounded-full bg-white/5 text-neutral-400">
-                        {account.type}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xl font-light tracking-tight font-geist text-white">
-                      {account.balance}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                <Icon className="w-5 h-5" />
+                <span className="text-xs font-geist">{action.label}</span>
+              </button>
             );
           })}
         </div>
-      </div>
 
-      {/* Add Account Button */}
-      <button className="w-full rounded-2xl ring-1 p-6 border border-dashed bg-neutral-900/95 ring-white/10 border-white/10 hover:ring-white/20 transition-all flex flex-col items-center justify-center gap-3 text-neutral-400 hover:text-neutral-300">
-        <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
-          <Plus className="w-6 h-6" />
+        {/* Accounts List */}
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold tracking-tight font-geist text-white">
+              Accounts
+            </h3>
+            <button className="text-sm font-geist text-emerald-400 hover:text-emerald-300 transition-colors">
+              View all
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {accounts.map((account) => {
+              const Icon = account.icon;
+              return (
+                <div
+                  key={account.id}
+                  className="rounded-2xl ring-1 p-5 border bg-neutral-900/95 ring-white/10 border-white/10 hover:ring-white/20 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4 min-w-0 flex-1">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 shrink-0">
+                        <Icon className="w-6 h-6 text-neutral-300" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="text-sm font-semibold tracking-tight font-geist text-white truncate">
+                          {account.name}
+                        </h4>
+                        <p className="mt-1 text-xs font-geist text-neutral-400 truncate">
+                          {account.bank} · {account.accountNumber}
+                        </p>
+                        <span className="mt-2 inline-block text-xs font-geist px-2 py-0.5 rounded-full bg-white/5 text-neutral-400">
+                          {account.type}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-xl font-light tracking-tight font-geist text-white">
+                        {account.balance}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <span className="text-sm font-geist">Add New Account</span>
-      </button>
+
+        {/* Add Account Button */}
+        <button className="rounded-2xl ring-1 p-6 border border-dashed bg-neutral-900/95 ring-white/10 border-white/10 hover:ring-white/20 transition-all flex flex-col items-center justify-center gap-3 text-neutral-400 hover:text-neutral-300">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
+            <Plus className="w-6 h-6" />
+          </div>
+          <span className="text-sm font-geist">Add New Account</span>
+        </button>
+      </div>
     </div>
   );
 }

@@ -47,7 +47,7 @@ const notifications = [
 
 export default function NotificationsView() {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light tracking-tight font-geist text-white">
@@ -62,7 +62,7 @@ export default function NotificationsView() {
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3 max-w-4xl">
         {notifications.map((notification) => {
           const Icon = notification.icon;
           const iconColors = {
@@ -78,26 +78,26 @@ export default function NotificationsView() {
             >
               <div className="flex items-start gap-4">
                 <div
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 bg-white/5 ring-white/10 ${
+                  className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 bg-white/5 ring-white/10 shrink-0 ${
                     iconColors[notification.type as keyof typeof iconColors]
                   }`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="text-sm font-semibold tracking-tight font-geist text-white">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-semibold tracking-tight font-geist text-white truncate">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-sm font-geist text-neutral-300">
+                      <p className="mt-1 text-sm font-geist text-neutral-300 truncate">
                         {notification.message}
                       </p>
                       <p className="mt-2 text-xs font-geist text-neutral-500">
                         {notification.time}
                       </p>
                     </div>
-                    <button className="ml-4 text-neutral-500 hover:text-neutral-300 transition-colors">
+                    <button className="text-neutral-500 hover:text-neutral-300 transition-colors shrink-0">
                       <X className="w-4 h-4" />
                     </button>
                   </div>

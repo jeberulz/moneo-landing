@@ -56,7 +56,7 @@ const recommendations = [
 
 export default function AIInsightsView() {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div>
         <h2 className="text-2xl font-light tracking-tight font-geist text-white">
           AI Insights
