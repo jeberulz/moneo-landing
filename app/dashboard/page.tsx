@@ -3,12 +3,10 @@ import Dashboard from "@/components/Dashboard";
 
 export default function DashboardPage() {
   return (
-    <>
+    <div className="relative h-screen overflow-hidden">
       <Background />
-      <div className="h-screen overflow-hidden">
-        <Dashboard />
-      </div>
-    </>
+      <Dashboard />
+    </div>
   );
 }
 
